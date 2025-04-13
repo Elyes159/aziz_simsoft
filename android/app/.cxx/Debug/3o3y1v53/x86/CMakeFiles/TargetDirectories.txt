@@ -1,0 +1,2 @@
+/Users/elyes/Desktop/simsoft/android/app/.cxx/Debug/3o3y1v53/x86/CMakeFiles/edit_cache.dir
+/Users/elyes/Desktop/simsoft/android/app/.cxx/Debug/3o3y1v53/x86/CMakeFiles/rebuild_cache.dir

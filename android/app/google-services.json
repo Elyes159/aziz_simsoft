@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "916679598679",
+    "project_id": "somisoft-4e592",
+    "storage_bucket": "somisoft-4e592.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916679598679:android:59c4d2827905b7a6933912",
+        "android_client_info": {
+          "package_name": "com.example.simsoft"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-OJ1Qfjz4YFcIYmCt27iAJEEnxndWO2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

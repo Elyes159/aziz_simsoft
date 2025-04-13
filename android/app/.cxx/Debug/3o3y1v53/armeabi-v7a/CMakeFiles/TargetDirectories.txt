@@ -1,0 +1,2 @@
+/Users/elyes/Desktop/simsoft/android/app/.cxx/Debug/3o3y1v53/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/elyes/Desktop/simsoft/android/app/.cxx/Debug/3o3y1v53/armeabi-v7a/CMakeFiles/rebuild_cache.dir
