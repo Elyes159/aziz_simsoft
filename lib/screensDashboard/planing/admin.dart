@@ -51,7 +51,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
       context: context,
       initialDate: _eventDate,
       firstDate: DateTime(2023),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(2027),
     );
 
     if (pickedDate != null && pickedDate != _eventDate) {

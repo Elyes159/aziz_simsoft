@@ -22,8 +22,7 @@ class _MainNavPageState extends State<MainNavPage> {
 
     final List<Widget> pages = [
       HomePage(role: widget.role),
-      if (isAdminOrChef)
-      const Center(child: Text('Ordre de maintenance')),
+      
       ArticlesManagementPage(role : widget.role),
       if (isAdminOrChef) UsersManagementPage(),
       const AccountSettingsPage(),
@@ -32,9 +31,7 @@ class _MainNavPageState extends State<MainNavPage> {
     final List<BottomNavigationBarItem> navItems = [
       const BottomNavigationBarItem(
           icon: Icon(Icons.dashboard), label: 'Dashboard'),
-          if (isAdminOrChef)
-      const BottomNavigationBarItem(
-          icon: Icon(Icons.build), label: 'Maintenance'),
+          
 
       const BottomNavigationBarItem(
           icon: Icon(Icons.article), label: 'Articles'),

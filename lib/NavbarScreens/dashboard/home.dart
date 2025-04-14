@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:simsoft/Auth/login.dart';
+import 'package:simsoft/screensDashboard/activ_par_tech/activite.dart';
 import 'package:simsoft/screensDashboard/demandesTech.dart/demande.dart';
 import 'package:simsoft/screensDashboard/equipements/equipAdmin.dart';
 import 'package:simsoft/screensDashboard/equipements/liste_equip.dart';
+import 'package:simsoft/screensDashboard/etatInter/etat_inter.dart';
 import 'package:simsoft/screensDashboard/planing/admin.dart';
 import 'package:simsoft/screensDashboard/planing/calendrier.dart';
+import 'package:simsoft/screensDashboard/rapports/techmec.dart';
 
 class HomePage extends StatelessWidget {
   final String role;
@@ -112,7 +115,12 @@ class HomePage extends StatelessWidget {
           context: context,
           icon: Icons.description,
           label: 'Mes propres rapports',
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CreateMaintenanceReportPage()));
+          },
         ),
         _buildHomeButton(
           context: context,
@@ -143,13 +151,23 @@ class HomePage extends StatelessWidget {
           context: context,
           icon: Icons.bar_chart,
           label: 'État des interventions',
-          onPressed: () {},
+          onPressed: () {
+             Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EtatInterventionsPage()));
+          },
         ),
         _buildHomeButton(
           context: context,
           icon: Icons.engineering,
           label: 'Activité par technicien',
-          onPressed: () {},
+          onPressed: () {
+             Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TechnicianActivityPage()));
+          },
         ),
         _buildHomeButton(
           context: context,
