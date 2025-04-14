@@ -40,6 +40,7 @@ dependencies:
   flutter_svg: ^2.0.17
   firebase_storage: ^12.4.5
   image_picker: ^1.1.2
+  table_calendar: ^3.2.0
 
 dev_dependencies:
   flutter_test:

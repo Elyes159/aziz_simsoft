@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simsoft/NavbarScreens/articles/articles.dart';
 import 'package:simsoft/NavbarScreens/dashboard/home.dart';
+import 'package:simsoft/NavbarScreens/settings/settings.dart';
 import 'package:simsoft/NavbarScreens/users/users.dart';
 
 class MainNavPage extends StatefulWidget {
@@ -21,20 +22,20 @@ class _MainNavPageState extends State<MainNavPage> {
 
     final List<Widget> pages = [
       HomePage(role: widget.role),
+      if (isAdminOrChef)
       const Center(child: Text('Ordre de maintenance')),
-      const Center(child: Text('Saisie de temps')),
       ArticlesManagementPage(role : widget.role),
       if (isAdminOrChef) UsersManagementPage(),
-      const Center(child: Text('Paramètres')),
+      const AccountSettingsPage(),
     ];
 
     final List<BottomNavigationBarItem> navItems = [
       const BottomNavigationBarItem(
           icon: Icon(Icons.dashboard), label: 'Dashboard'),
+          if (isAdminOrChef)
       const BottomNavigationBarItem(
           icon: Icon(Icons.build), label: 'Maintenance'),
-      const BottomNavigationBarItem(
-          icon: Icon(Icons.access_time), label: 'Temps'),
+
       const BottomNavigationBarItem(
           icon: Icon(Icons.article), label: 'Articles'),
       if (isAdminOrChef)

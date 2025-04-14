@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:simsoft/Auth/login.dart';
+import 'package:simsoft/screensDashboard/demandesTech.dart/demande.dart';
+import 'package:simsoft/screensDashboard/equipements/equipAdmin.dart';
+import 'package:simsoft/screensDashboard/equipements/liste_equip.dart';
+import 'package:simsoft/screensDashboard/planing/admin.dart';
+import 'package:simsoft/screensDashboard/planing/calendrier.dart';
 
 class HomePage extends StatelessWidget {
   final String role;
@@ -18,9 +23,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final isTechnicien = role.toLowerCase() == "technicien";
     final isMecanicien = role.toLowerCase() == "mecanicien";
-
     final isAdmin = role.toLowerCase() == "admin";
-    final isChef =  role.toLowerCase() == 'chef d\'équipe';
+    final isChef = role.toLowerCase() == 'chef d\'équipe';
 
     return Scaffold(
       appBar: AppBar(
@@ -51,51 +55,13 @@ class HomePage extends StatelessWidget {
                       crossAxisSpacing: 16,
                       mainAxisSpacing: 16,
                       childAspectRatio: 1.1,
-                      children: isTechnicien || isMecanicien
-                          ? [
-                              _buildHomeButton(
-                                icon: Icons.build,
-                                label: 'Liste des équipements',
-                                onPressed: () {},
-                              ),
-                              _buildHomeButton(
-                                icon: Icons.calendar_today,
-                                label: 'Planning d’intervention',
-                                onPressed: () {},
-                              ),
-                              _buildHomeButton(
-                                icon: Icons.description,
-                                label: 'Mes propres rapports',
-                                onPressed: () {},
-                              ),
-                              _buildHomeButton(
-                                icon: Icons.report_problem,
-                                label: 'État de Mes demandes',
-                                onPressed: () {},
-                              ),
-                            ]
-                          : [
-                              _buildHomeButton(
-                                icon: Icons.assignment,
-                                label: 'Nombre de demandes',
-                                onPressed: () {},
-                              ),
-                              _buildHomeButton(
-                                icon: Icons.bar_chart,
-                                label: 'État des interventions',
-                                onPressed: () {},
-                              ),
-                              _buildHomeButton(
-                                icon: Icons.engineering,
-                                label: 'Activité par technicien',
-                                onPressed: () {},
-                              ),
-                              _buildHomeButton(
-                                icon: Icons.calendar_today,
-                                label: 'Planning global',
-                                onPressed: () {},
-                              ),
-                            ],
+                      children: _getButtonsForRole(
+                        context: context,
+                        isTechnicien: isTechnicien,
+                        isMecanicien: isMecanicien,
+                        isAdmin: isAdmin,
+                        isChef: isChef,
+                      ),
                     )
                   : const Center(
                       child: Text(
@@ -105,15 +71,104 @@ class HomePage extends StatelessWidget {
                     ),
             ),
             const SizedBox(height: 10),
-            
-            
           ],
         ),
       ),
     );
   }
 
+  List<Widget> _getButtonsForRole({
+    required BuildContext context,
+    required bool isTechnicien,
+    required bool isMecanicien,
+    required bool isAdmin,
+    required bool isChef,
+  }) {
+    if (isTechnicien || isMecanicien) {
+      return [
+        _buildHomeButton(
+          context: context,
+          icon: Icons.build,
+          label: 'Liste des équipements',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ListeEquipementsPage()));
+          },
+        ),
+        _buildHomeButton(
+          context: context,
+          icon: Icons.calendar_today,
+          label: 'Planning d\'intervention',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PlanningGlobalPage()));
+          },
+        ),
+        _buildHomeButton(
+          context: context,
+          icon: Icons.description,
+          label: 'Mes propres rapports',
+          onPressed: () {},
+        ),
+        _buildHomeButton(
+          context: context,
+          icon: Icons.report_problem,
+          label: 'État de Mes demandes',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DemandeInterventionPage()));
+          },
+        ),
+      ];
+    } else if (isAdmin || isChef) {
+      return [
+        _buildHomeButton(
+          context: context,
+          icon: Icons.manage_search_sharp,
+          label: 'Gestion des équipements',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EquipementPage(role: role,)));
+          },
+        ),
+        _buildHomeButton(
+          context: context,
+          icon: Icons.bar_chart,
+          label: 'État des interventions',
+          onPressed: () {},
+        ),
+        _buildHomeButton(
+          context: context,
+          icon: Icons.engineering,
+          label: 'Activité par technicien',
+          onPressed: () {},
+        ),
+        _buildHomeButton(
+          context: context,
+          icon: Icons.calendar_today,
+          label: 'Planning global',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CreateEventPage()));
+          },
+        ),
+      ];
+    }
+    return [];
+  }
+
   Widget _buildHomeButton({
+    required BuildContext context,
     required IconData icon,
     required String label,
     required VoidCallback onPressed,
@@ -133,7 +188,9 @@ class HomePage extends StatelessWidget {
         children: [
           Icon(icon, size: 40),
           const SizedBox(height: 12),
-          Text(label, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
+          Text(label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16)),
         ],
       ),
     );
