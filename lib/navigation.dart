@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simsoft/NavbarScreens/articles/articles.dart';
-import 'package:simsoft/NavbarScreens/dashboard/home.dart';
+import 'package:simsoft/NavbarScreens/dashboard/dashboard.dart';
+import 'package:simsoft/NavbarScreens/menu/home.dart';
 import 'package:simsoft/NavbarScreens/settings/settings.dart';
 import 'package:simsoft/NavbarScreens/users/users.dart';
 
@@ -21,18 +22,18 @@ class _MainNavPageState extends State<MainNavPage> {
         widget.role.toLowerCase() == 'chef d\'equipe';
 
     final List<Widget> pages = [
+       if (isAdminOrChef)StatisticsDashboard(),
       HomePage(role: widget.role),
-      
       ArticlesManagementPage(role : widget.role),
       if (isAdminOrChef) UsersManagementPage(),
       const AccountSettingsPage(),
     ];
-
     final List<BottomNavigationBarItem> navItems = [
+      if(isAdminOrChef)
       const BottomNavigationBarItem(
-          icon: Icon(Icons.dashboard), label: 'Dashboard'),
-          
-
+          icon: Icon(Icons.chalet_sharp), label: 'dashboard'),
+      const BottomNavigationBarItem(
+          icon: Icon(Icons.dashboard), label: 'Menu'),
       const BottomNavigationBarItem(
           icon: Icon(Icons.article), label: 'Articles'),
       if (isAdminOrChef)
@@ -41,7 +42,6 @@ class _MainNavPageState extends State<MainNavPage> {
       const BottomNavigationBarItem(
           icon: Icon(Icons.settings), label: 'Paramètres'),
     ];
-
     return Scaffold(
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

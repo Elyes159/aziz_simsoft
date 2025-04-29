@@ -27,8 +27,8 @@ class HomePage extends StatelessWidget {
     final isTechnicien = role.toLowerCase() == "technicien";
     final isMecanicien = role.toLowerCase() == "mecanicien";
     final isAdmin = role.toLowerCase() == "admin";
-    final isChef = role.toLowerCase() == 'chef d\'équipe';
-
+    final isChef = role.toLowerCase() == 'chef d\'equipe';
+    final isOuvrier = role.toLowerCase() == 'ouvrier';
     return Scaffold(
       appBar: AppBar(
         title: Text('Accueil ($role)'),
@@ -134,8 +134,66 @@ class HomePage extends StatelessWidget {
           },
         ),
       ];
-    } else if (isAdmin || isChef) {
+    } else if (isAdmin) {
       return [
+        _buildHomeButton(
+          context: context,
+          icon: Icons.manage_search_sharp,
+          label: 'Gestion des équipements',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EquipementPage(role: role,)));
+          },
+        ),
+        _buildHomeButton(
+          context: context,
+          icon: Icons.bar_chart,
+          label: 'État des interventions',
+          onPressed: () {
+             Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EtatInterventionsPage()));
+          },
+        ),
+        _buildHomeButton(
+          context: context,
+          icon: Icons.engineering,
+          label: 'Activité par technicien',
+          onPressed: () {
+             Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TechnicianActivityPage()));
+          },
+        ),
+        _buildHomeButton(
+          context: context,
+          icon: Icons.calendar_today,
+          label: 'Planning global',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CreateEventPage()));
+          },
+        ),
+      ];
+    } else if (isChef){
+       return [
+         _buildHomeButton(
+          context: context,
+          icon: Icons.report_problem,
+          label: 'État de Mes demandes',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DemandeInterventionPage()));
+          },
+        ),
         _buildHomeButton(
           context: context,
           icon: Icons.manage_search_sharp,

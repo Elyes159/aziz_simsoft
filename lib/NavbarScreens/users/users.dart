@@ -38,9 +38,8 @@ class _UsersManagementPageState extends State<UsersManagementPage> {
 
       await FirebaseFirestore.instance.collection('users').doc(uid).set({
         'role': role,
-        'email': email, // 👈 email ajouté ici
+        'email': email, 
       });
-
       _emailController.clear();
       _passwordController.clear();
       _roleController.clear();
