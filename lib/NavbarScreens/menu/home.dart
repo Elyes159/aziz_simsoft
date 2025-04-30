@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Expanded(
-              child: (isTechnicien || isAdmin || isMecanicien || isChef)
+              child: (isTechnicien || isAdmin || isMecanicien || isChef || isOuvrier)
                   ? GridView.count(
                       crossAxisCount: 2,
                       crossAxisSpacing: 16,
@@ -60,6 +60,7 @@ class HomePage extends StatelessWidget {
                       childAspectRatio: 1.1,
                       children: _getButtonsForRole(
                         context: context,
+                        isOuvrier: isOuvrier,
                         isTechnicien: isTechnicien,
                         isMecanicien: isMecanicien,
                         isAdmin: isAdmin,
@@ -86,7 +87,45 @@ class HomePage extends StatelessWidget {
     required bool isMecanicien,
     required bool isAdmin,
     required bool isChef,
+    required bool isOuvrier,
   }) {
+    if(isOuvrier) {
+      return [
+        _buildHomeButton(
+          context: context,
+          icon: Icons.build,
+          label: 'Liste des équipements',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ListeEquipementsPage()));
+          },
+        ),
+        _buildHomeButton(
+          context: context,
+          icon: Icons.calendar_today,
+          label: 'Planning d\'intervention',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PlanningGlobalPage()));
+          },
+        ),
+         _buildHomeButton(
+          context: context,
+          icon: Icons.report_problem,
+          label: 'État de Mes demandes',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DemandeInterventionPage()));
+          },
+        ),
+      ];
+    }
     if (isTechnicien || isMecanicien) {
       return [
         _buildHomeButton(
