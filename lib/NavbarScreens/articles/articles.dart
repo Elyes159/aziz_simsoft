@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:simsoft/Widgets/CustomButton.dart';
 import 'package:simsoft/Widgets/customTextfield.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ArticlesManagementPage extends StatefulWidget {
   final String role;
@@ -76,6 +81,62 @@ class _ArticlesManagementPageState extends State<ArticlesManagementPage> {
     }
   }
 
+ Future<void> _pickAndUploadImage() async {
+  final picker = ImagePicker();
+  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+  if (pickedFile == null) return;
+
+  final file = File(pickedFile.path);
+
+  final request = http.MultipartRequest(
+    'POST',
+    Uri.parse('http://192.168.1.15:8000/api/upload/'), // Remplace par ton vrai domaine
+  );
+
+  request.files.add(
+    await http.MultipartFile.fromPath(
+      'photo', // Nom du champ attendu par Django
+      file.path,
+      contentType: MediaType('image', 'jpeg'), // ou png selon ton image
+    ),
+  );
+
+  try {
+    final response = await request.send();
+    final responseBody = await response.stream.bytesToString();
+
+    if (response.statusCode == 200) {
+      final result = json.decode(responseBody);
+      final imageUrl = result['url'];
+
+      // Si dans un StatefulWidget
+      setState(() {
+        _imageUrlController.text = imageUrl;
+      });
+
+      print('✅ Image URL: $imageUrl');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Image uploadée avec succès')),
+      );
+    } else {
+      print('❌ Erreur serveur: ${response.statusCode}');
+      print('❌ Réponse: $responseBody');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Échec de l'upload d'image.")),
+      );
+    }
+  } catch (e) {
+    print('❌ Exception: $e');
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Erreur lors de l'envoi de l'image.")),
+    );
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     final isAdminOrChef =
@@ -122,13 +183,24 @@ class _ArticlesManagementPageState extends State<ArticlesManagementPage> {
                   label: 'Prix',
                   isPassword: false),
               const SizedBox(height: 10),
-              CustomTextFormField(
-                  controller: _imageUrlController,
-                  label: 'URL de l\'image',
-                  isPassword: false),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomTextFormField(
+                      controller: _imageUrlController,
+                      label: 'URL de l\'image (rempli automatiquement)',
+                      isPassword: false,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.upload_file),
+                    onPressed: _pickAndUploadImage,
+                  )
+                ],
+              ),
               const SizedBox(height: 10),
               const Text(
-                'Uploader votre image sur https://postimg.cc et collez ici le lien direct.',
+                'Clique sur le bouton de droite pour choisir et uploader une image.',
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               CustomButton(

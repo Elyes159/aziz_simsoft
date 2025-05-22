@@ -29,3 +29,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+//https://ik.imagekit.io/89vvuuqdg/path/to/myimage.jpg
