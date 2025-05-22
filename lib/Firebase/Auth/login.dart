@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:simsoft/navigation.dart';
+import 'package:simsoft/NavbarScreens/menu/home.dart';
+import 'package:simsoft/drawer/drawer.dart';
 
 
 class AuthService {

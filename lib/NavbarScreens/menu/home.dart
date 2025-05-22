@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:simsoft/Auth/login.dart';
+import 'package:simsoft/drawer/drawer.dart';
 import 'package:simsoft/screensDashboard/activ_par_tech/activite.dart';
 import 'package:simsoft/screensDashboard/demandesTech.dart/demande.dart';
 import 'package:simsoft/screensDashboard/equipements/equipAdmin.dart';
@@ -30,6 +31,7 @@ class HomePage extends StatelessWidget {
     final isChef = role.toLowerCase() == 'chef d\'equipe';
     final isOuvrier = role.toLowerCase() == 'ouvrier';
     return Scaffold(
+     
       appBar: AppBar(
         title: Text('Accueil ($role)'),
         actions: [
@@ -52,7 +54,11 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Expanded(
-              child: (isTechnicien || isAdmin || isMecanicien || isChef || isOuvrier)
+              child: (isTechnicien ||
+                      isAdmin ||
+                      isMecanicien ||
+                      isChef ||
+                      isOuvrier)
                   ? GridView.count(
                       crossAxisCount: 2,
                       crossAxisSpacing: 16,
@@ -89,7 +95,7 @@ class HomePage extends StatelessWidget {
     required bool isChef,
     required bool isOuvrier,
   }) {
-    if(isOuvrier) {
+    if (isOuvrier) {
       return [
         _buildHomeButton(
           context: context,
@@ -107,13 +113,11 @@ class HomePage extends StatelessWidget {
           icon: Icons.calendar_today,
           label: 'Planning d\'intervention',
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PlanningGlobalPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => PlanningGlobalPage()));
           },
         ),
-         _buildHomeButton(
+        _buildHomeButton(
           context: context,
           icon: Icons.report_problem,
           label: 'État de Mes demandes',
@@ -144,10 +148,8 @@ class HomePage extends StatelessWidget {
           icon: Icons.calendar_today,
           label: 'Planning d\'intervention',
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PlanningGlobalPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => PlanningGlobalPage()));
           },
         ),
         _buildHomeButton(
@@ -183,7 +185,9 @@ class HomePage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => EquipementPage(role: role,)));
+                    builder: (context) => EquipementPage(
+                          role: role,
+                        )));
           },
         ),
         _buildHomeButton(
@@ -191,7 +195,7 @@ class HomePage extends StatelessWidget {
           icon: Icons.bar_chart,
           label: 'État des interventions',
           onPressed: () {
-             Navigator.push(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => EtatInterventionsPage()));
@@ -202,7 +206,7 @@ class HomePage extends StatelessWidget {
           icon: Icons.engineering,
           label: 'Activité par technicien',
           onPressed: () {
-             Navigator.push(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => TechnicianActivityPage()));
@@ -213,16 +217,14 @@ class HomePage extends StatelessWidget {
           icon: Icons.calendar_today,
           label: 'Planning global',
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CreateEventPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CreateEventPage()));
           },
         ),
       ];
-    } else if (isChef){
-       return [
-         _buildHomeButton(
+    } else if (isChef) {
+      return [
+        _buildHomeButton(
           context: context,
           icon: Icons.report_problem,
           label: 'État de Mes demandes',
@@ -241,7 +243,9 @@ class HomePage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => EquipementPage(role: role,)));
+                    builder: (context) => EquipementPage(
+                          role: role,
+                        )));
           },
         ),
         _buildHomeButton(
@@ -249,7 +253,7 @@ class HomePage extends StatelessWidget {
           icon: Icons.bar_chart,
           label: 'État des interventions',
           onPressed: () {
-             Navigator.push(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => EtatInterventionsPage()));
@@ -260,7 +264,7 @@ class HomePage extends StatelessWidget {
           icon: Icons.engineering,
           label: 'Activité par technicien',
           onPressed: () {
-             Navigator.push(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => TechnicianActivityPage()));
@@ -271,10 +275,8 @@ class HomePage extends StatelessWidget {
           icon: Icons.calendar_today,
           label: 'Planning global',
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CreateEventPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CreateEventPage()));
           },
         ),
       ];
